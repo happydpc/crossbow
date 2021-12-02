@@ -47,9 +47,11 @@ pub fn compile_macroquad_rust_for_android(
         .join("target")
         .join(build_target.rust_triple())
         .join(profile);
+
     fs::create_dir_all(&build_target_dir).unwrap();
 
     let triple = build_target.rust_triple();
+
     // Set environment variables needed for use with the cc crate
     let (clang, clang_pp) = ndk.clang(build_target, target_sdk_version)?;
     let ar = ndk.toolchain_bin("ar", build_target)?;
@@ -171,6 +173,7 @@ impl Executor for SharedLibraryExecutor {
             // Create the temporary file
             let mut tmp_file = Builder::new()
                 .prefix(&tmp_lib_file_prefix)
+                .suffix(".tmp")
                 .tempfile_in(original_src_filepath.parent().unwrap())?;
 
             let extra_code = r##"

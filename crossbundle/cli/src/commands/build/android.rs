@@ -82,7 +82,7 @@ impl AndroidBuildCommand {
             // We need a different compilation process for macroquad projects
             // because of the sokol lib dependency
             if self.shared.quad {
-                android::compile_macroquad_rust_for_android(
+                android::compile_rust_for_android(
                     &ndk,
                     *build_target,
                     &project_path,
@@ -92,11 +92,11 @@ impl AndroidBuildCommand {
                     self.shared.no_default_features,
                     target_sdk_version,
                     &lib_name,
+                    GameEngine::Macroquad,
                 )?;
             } else {
                 android::compile_rust_for_android(
                     &ndk,
-                    target.clone(),
                     *build_target,
                     &project_path,
                     profile,
@@ -104,6 +104,8 @@ impl AndroidBuildCommand {
                     self.shared.all_features,
                     self.shared.no_default_features,
                     target_sdk_version,
+                    &lib_name,
+                    GameEngine::Bevy,
                 )?;
             }
             let out_dir = target_dir.join(build_target.rust_triple()).join(&profile);
@@ -205,7 +207,7 @@ impl AndroidBuildCommand {
             // We need a different compilation process for macroquad projects
             // because of the sokol lib dependency
             if self.shared.quad {
-                android::compile_macroquad_rust_for_android(
+                android::compile_rust_for_android(
                     &ndk,
                     *build_target,
                     &project_path,
@@ -215,11 +217,11 @@ impl AndroidBuildCommand {
                     self.shared.no_default_features,
                     target_sdk_version,
                     &lib_name,
+                    GameEngine::Macroquad,
                 )?;
             } else {
                 android::compile_rust_for_android(
                     &ndk,
-                    target.clone(),
                     *build_target,
                     &project_path,
                     profile,
@@ -227,6 +229,8 @@ impl AndroidBuildCommand {
                     self.shared.all_features,
                     self.shared.no_default_features,
                     target_sdk_version,
+                    &lib_name,
+                    GameEngine::Bevy,
                 )?;
             }
             let out_dir = target_dir.join(build_target.rust_triple()).join(&profile);
